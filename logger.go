@@ -19,7 +19,7 @@ const (
 	logStack = true
 	logStackCount = 20
 
-	disableGLog = true
+	disableGLog = false
 )
 
 type ContextHook struct {
