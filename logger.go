@@ -87,7 +87,7 @@ FindCaller:
 	}*/
 
 	entry.Data["stack"] = stackContent
-
+    entry.Data["type"] = "jlog"
 	return nil
 }
 
@@ -98,22 +98,27 @@ func Init(logfile string) {
 
 	flag.Parse() // glog need log path so we parse when init
 
-	logrus.SetFormatter(&logrus.TextFormatter{
-		ForceColors: true,
+	/*logrus.SetFormatter(&logrus.TextFormatter{
+		// ForceColors: true,
 		FullTimestamp: true,
-		TimestampFormat:"2006-01-02 15:04:05",
-	})
+		// TimestampFormat:"2006-01-02 15:04:05",
+	})*/
+	logrus.SetFormatter(&logrus.JSONFormatter{})
 	logrus.AddHook(ContextHook{})
 
-	logPath := path.Join(flag.Lookup("log_dir").Value.String(), logFilename)
-	fmt.Println("Log would be written to: ", logPath)
-	logrus.SetOutput(&lumberjack.Logger{
-		Filename:   logPath,
-		MaxSize:    10, // megabytes
-		MaxBackups: 5,
-		MaxAge:     28, //days
-		Compress:   true, // disabled by default
-	})
+	if logfile != "" {
+		logPath := path.Join(flag.Lookup("log_dir").Value.String(), logFilename)
+		fmt.Println("Log would be written to: ", logPath)
+		logrus.SetOutput(&lumberjack.Logger{
+			Filename:   logPath,
+			MaxSize:    100, // megabytes
+			MaxBackups: 10,
+			MaxAge:     60,   //days
+			Compress:   true, // disabled by default
+		})
+	} else {
+		fmt.Println("Log would be written to stdout")
+	}
 }
 
 func Flush() {
