@@ -98,15 +98,10 @@ func Init(logfile string) {
 
 	flag.Parse() // glog need log path so we parse when init
 
-	/*logrus.SetFormatter(&logrus.TextFormatter{
-		// ForceColors: true,
-		FullTimestamp: true,
-		// TimestampFormat:"2006-01-02 15:04:05",
-	})*/
-	logrus.SetFormatter(&logrus.JSONFormatter{})
-	logrus.AddHook(ContextHook{})
 
 	if logfile != "" {
+		logrus.SetFormatter(&logrus.JSONFormatter{})
+
 		logPath := path.Join(flag.Lookup("log_dir").Value.String(), logFilename)
 		fmt.Println("Log would be written to: ", logPath)
 		logrus.SetOutput(&lumberjack.Logger{
@@ -117,8 +112,14 @@ func Init(logfile string) {
 			Compress:   true, // disabled by default
 		})
 	} else {
+		logrus.SetFormatter(&logrus.TextFormatter{
+			ForceColors: true,
+			FullTimestamp: true,
+			TimestampFormat:"2006-01-02 15:04:05",
+		})
 		fmt.Println("Log would be written to stdout")
 	}
+	logrus.AddHook(ContextHook{})
 }
 
 func Flush() {
