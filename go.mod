@@ -1,4 +1,4 @@
-module jlog
+module github.com/chiahsun/jlog
 
 go 1.12
 

@@ -2,7 +2,7 @@ package main
 
 import (
 	"errors"
-	"jlog/jlog"
+	"github.com/chiahsun/jlog/jlog"
 )
 
 func f1() {

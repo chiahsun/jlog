@@ -1,7 +1,7 @@
 package jlog_test
 
 import (
-	"jlog/jlog"
+	"github.com/chiahsun/jlog/jlog"
 	"testing"
 )
 
