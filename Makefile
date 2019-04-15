@@ -1,11 +1,13 @@
-all:
-	echo "Put this makefile in your gopath root"
+CUR_GOPATH=$(PWD)/../../../../../../../go
 
 run:
-	export GOPATH=$(PWD); go run src/192.168.12.16/Source/IM/Jello/jlog/main/main.go
+	export GOPATH=$(CUR_GOPATH) && go run main/main.go
 
 dep:
-	export GOPATH=$(PWD) && cd src/192.168.12.16/Source/IM/Jello/jlog && dep ensure
+	export GOPATH=$(CUR_GOPATH) && dep ensure
 
 test:
-	export GOPATH=$(PWD) && cd src/192.168.12.16/Source/IM/Jello/jlog && go test
+	export GOPATH=$(CUR_GOPATH) && go test --race
+
+benchmark:
+	export GOPATH=$(CUR_GOPATH) && go test -bench=.

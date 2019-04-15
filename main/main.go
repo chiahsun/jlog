@@ -2,7 +2,6 @@ package main
 
 import (
 	"192.168.12.16/Source/IM/Jello/jlog"
-	"errors"
 )
 
 func f1() {
@@ -18,17 +17,18 @@ func f3() {
 }
 
 func f4() {
-	jlog.Info("this is my message")
-	jlog.Info(errors.New("my error"))
+	jlog.Trace("trace")
+	jlog.Debug("debug")
+	jlog.Info("info")
+	jlog.Warning("warning")
+	jlog.Error("error")
 }
 
-// put to 192.168.12.16/Source/IM/Jello/jlog
+// Put to 192.168.12.16/Source/IM/Jello/jlog
 // Use submodule
 
-// Both glog and logrus write to file
 func main() {
-	jlog.Init("logrus.log")
-	defer jlog.Flush()
+	jlog.Init(jlog.NewLogConfig().SetLogFileOutput("logrus.log", "log"))
 
 	f1()
 }
