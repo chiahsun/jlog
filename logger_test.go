@@ -8,7 +8,7 @@ import (
 )
 
 func TestMain(m *testing.M) {
-	jlog.Init(jlog.NewLogConfig().SetLogFileOutput("logrus.log", "log"))
+	jlog.Init(jlog.NewLogConfig().SetLogFileOutput("log", "logrus.log"))
 	m.Run()
 }
 

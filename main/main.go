@@ -28,7 +28,7 @@ func f4() {
 // Use submodule
 
 func main() {
-	jlog.Init(jlog.NewLogConfig().SetLogFileOutput("logrus.log", "log"))
+	jlog.Init(jlog.NewLogConfig().SetLogFileOutput("log", "logrus.log"))
 
 	f1()
 }

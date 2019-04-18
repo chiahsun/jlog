@@ -69,6 +69,11 @@ func Init(config *LogConfig) {
 	filename := path.Join(config.logDirectory, config.logFilename)
 	if config.logStdout {
 		logrus.SetOutput(os.Stdout)
+		logrus.SetFormatter(&logrus.TextFormatter{
+			ForceColors:     true,
+			FullTimestamp:   true,
+			TimestampFormat: "2006-01-02 15:04:05",
+		})
 		fmt.Println("Log would be written to: stdout")
 	} else {
 		logrus.SetOutput(&lumberjack.Logger{
