@@ -29,6 +29,7 @@ type LogConfig struct {
 	logDirectory string
 	logLevel     string
 	logStdout    bool
+	serviceLabel string
 }
 
 func NewLogConfig() *LogConfig {
@@ -52,6 +53,11 @@ func (c *LogConfig) SetLogLevel(logLevel string) *LogConfig {
 
 func (c *LogConfig) SetLogStdout(logStdout bool) *LogConfig {
 	c.logStdout = logStdout
+	return c
+}
+
+func (c* LogConfig) SetServiceLabel(serviceLabel string) *LogConfig {
+	c.serviceLabel = serviceLabel
 	return c
 }
 
@@ -88,10 +94,11 @@ func Init(config *LogConfig) {
 		fmt.Println("Log would be written to: ", filename)
 	}
 	logrus.SetLevel(logLevel)
-	logrus.AddHook(ContextHook{})
+	logrus.AddHook(ContextHook{config})
 }
 
 type ContextHook struct {
+	logConfig *LogConfig
 }
 
 func (hook ContextHook) Levels() []logrus.Level {
@@ -156,6 +163,10 @@ FindCaller:
 
 	entry.Data["stack"] = stackContent
 	entry.Data["type"] = "jlog"
+	if hook.logConfig != nil && len(hook.logConfig.serviceLabel) > 0 {
+		entry.Data["service"] = hook.logConfig.serviceLabel
+	}
+
 	return nil
 }
 
