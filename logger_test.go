@@ -1,6 +1,7 @@
 package jlog_test
 
 import (
+	"os"
 	"sync"
 	"testing"
 
@@ -9,7 +10,7 @@ import (
 
 func TestMain(m *testing.M) {
 	jlog.Init(jlog.NewLogConfig().SetLogFileOutput("log", "logrus.log"))
-	m.Run()
+	os.Exit(m.Run())
 }
 
 func TestJLOG_Info(t *testing.T) {
