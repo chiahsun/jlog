@@ -3,3 +3,4 @@ vendor/
 pkg/
 bin/
 /Gopkg.lock
+/log

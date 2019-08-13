@@ -42,10 +42,7 @@ func TestJLOG_Fatal(t *testing.T) {
 }
 
 func TestJLOG_Concurrency(t *testing.T) {
-	msg := ""
-	for i := 0; i < 10000; i++ {
-		msg += "1"
-	}
+	msg := "1"
 
 	wg := sync.WaitGroup{}
 	for n := 0; n < 1000; n++ {

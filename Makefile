@@ -1,13 +1,15 @@
-CUR_GOPATH=$(PWD)/../../../../../../../go
+.PHONY: all run test benchmark init
+
+all:
 
 run:
-	export GOPATH=$(CUR_GOPATH) && go run main/main.go
-
-dep:
-	export GOPATH=$(CUR_GOPATH) && dep ensure
+	go run main/main.go
 
 test:
-	export GOPATH=$(CUR_GOPATH) && go test --race
+	go test --race
 
 benchmark:
-	export GOPATH=$(CUR_GOPATH) && go test -bench=.
+	go test -bench=.
+
+init:
+	go mod init 192.168.12.16/Source/IM/Jello/jlog
